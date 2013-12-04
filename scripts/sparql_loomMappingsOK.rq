@@ -1,0 +1,23 @@
+# vim: filetype=sparql
+
+# NOTE: Manuel suggests replacing the DESCRIBE with a CONSTRUCT statement.
+
+#DESCRIBE ?s
+#FROM <http://purl.bioontology.org/mapping/loom>
+#WHERE
+#{
+#    ?s ?p ?o .
+#}
+
+CONSTRUCT
+{
+    ?s ?p ?o .
+}
+WHERE
+{
+    GRAPH <http://purl.bioontology.org/mapping/loom>
+    {
+        ?s ?p ?o .
+    }
+}
+

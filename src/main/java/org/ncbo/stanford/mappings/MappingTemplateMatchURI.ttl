@@ -1,0 +1,57 @@
+# name, metadata for automatic mappings:
+# 
+# umls-cui-match, skos:closeMatch
+# umls-mapping, skos:closeMatch
+# uri-match, skos:exactMatch
+# obo-xref, skos:relatedMatch
+
+# --------------------------------------------
+@prefix mapRDFS: <http://protege.stanford.edu/ontologies/mappings/mappings.rdfs#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# Prefix and graph for uri-match.
+@prefix uri-match: <http://purl.bioontology.org/mapping/uri-match/> .
+
+# --------------------------------------------
+# Only once for each "uri-match" mapping process:
+
+<http://purl.bioontology.org/mapping/uri-match/procinfo/{processDate}>
+	mapRDFS:date "{processDate}"^^xsd:dateTime ;
+	mapRDFS:comment "Identical URI" ;
+        # Need a new process account called 'uri-match', instead of LOOM.
+	mapRDFS:submitted_by "39473"^^xsd:integer ;
+	mapRDFS:mapping_type "Automatic" ;
+	mapRDFS:mapping_source "Application" ;
+	mapRDFS:mapping_source_name "uri-match" ;
+	mapRDFS:mapping_source_contact_info "admin@bioontology.org" ;
+	mapRDFS:mapping_source_site <http://www.bioontology.org> ;
+	mapRDFS:mapping_source_algorithm "Generate skos:exactMatch mapping for terms from different ontologies that have the same URI" .
+
+# -----------------------------------------------------------------------------
+# For every mapping.
+# - note mapping pairs and dependendency predicate.
+# - note has_proc_info predicate.
+
+mapRDFS:One_To_One_Mapping mapRDFS:id <http://purl.bioontology.org/mapping/uri-match/{mappingID1}> .
+<http://purl.bioontology.org/mapping/uri-match/{mappingID1}> a mapRDFS:One_To_One_Mapping  ;
+	mapRDFS:source <{ontA-termURI}> ;
+	mapRDFS:target <{ontB-termURI}> ;
+	mapRDFS:relation <http://www.w3.org/2004/02/skos/core#exactMatch> ;
+	mapRDFS:dependency <http://purl.bioontology.org/mapping/uri-match/{mappingID2}> ;
+	mapRDFS:source_ontology_id "{ontA-virtual-ID}"^^xsd:integer ;
+	mapRDFS:target_ontology_id "{ontB-virtual-ID}"^^xsd:integer ;
+	mapRDFS:created_in_source_ontology_version "{ontA-version-ID}"^^xsd:integer ;
+	mapRDFS:created_in_target_ontology_version "{ontB-version-ID}"^^xsd:integer ;
+	mapRDFS:has_process_info <http://purl.bioontology.org/mapping/uri-match/procinfo/{processDate}> .
+
+mapRDFS:One_To_One_Mapping mapRDFS:id <http://purl.bioontology.org/mapping/uri-match/{mappingID2}> .
+<http://purl.bioontology.org/mapping/uri-match/{mappingID2}> a mapRDFS:One_To_One_Mapping  ;
+	mapRDFS:source <{ontB-termURI}> ;
+	mapRDFS:target <{ontA-termURI}> ;
+	mapRDFS:relation <http://www.w3.org/2004/02/skos/core#exactMatch> ;
+	mapRDFS:dependency <http://purl.bioontology.org/mapping/uri-match/{mappingID1}> ;
+	mapRDFS:source_ontology_id "{ontB-virtual-ID}"^^xsd:integer ;
+	mapRDFS:target_ontology_id "{ontA-virtual-ID}"^^xsd:integer ;
+	mapRDFS:created_in_source_ontology_version "{ontB-version-ID}"^^xsd:integer ;
+	mapRDFS:created_in_target_ontology_version "{ontA-version-ID}"^^xsd:integer ;
+	mapRDFS:has_process_info <http://purl.bioontology.org/mapping/uri-match/procinfo/{processDate}> .
+

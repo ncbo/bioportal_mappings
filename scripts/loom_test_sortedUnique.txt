@@ -1,0 +1,10 @@
+
+medialpreopticarea	skos:altLabel	http://bioontology.org/projects/ontologies/birnlex#birnlex_1208	1089	29684
+medialpreopticarea	skos:altLabel	http://bioontology.org/projects/ontologies/birnlex#birnlex_706	1089	29684
+medialpreopticarea	skos:altLabel	http://bioontology.org/projects/ontologies/radlex/radlexOwlDlComponent#RID20947	1057	46355
+medialpreopticarea	skos:altLabel	http://ontology.neuinfo.org/NIF/BiomaterialEntities/NIF-GrossAnatomy.owl#birnlex_1208	1084	46505
+medialpreopticarea	skos:altLabel	http://ontology.neuinfo.org/NIF/BiomaterialEntities/NIF-GrossAnatomy.owl#birnlex_706	1084	46505
+medialpreopticarea	skos:altLabel	http://purl.obolibrary.org/obo/FMA_67890	1245	39927
+medialpreopticarea	skos:altLabel	http://purl.obolibrary.org/obo/UBERON_0007769	1404	46902
+medialpreopticarea	skos:prefLabel	http://mouse.brain-map.org/atlas/index.html#MPO	1290	40133
+

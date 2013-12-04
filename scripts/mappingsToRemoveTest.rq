@@ -1,0 +1,14 @@
+PREFIX mapRDFS: <http://protege.stanford.edu/ontologies/mappings/mappings.rdfs#>
+PREFIX xmls: <http://www.w3.org/2001/XMLSchema#>
+SELECT ?mapID WHERE
+{
+    GRAPH <http://purl.bioontology.org/mapping/loom>
+    {
+
+        ?mapID a mapRDFS:One_To_One_Mapping ;
+            mapRDFS:source <http://purl.bioontology.org/ontology/HL7/C0439472> ;
+            mapRDFS:target ?dstURI .
+            FILTER ( ?dstURI != <http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#Pound_per_Square_Inch> )
+    }
+}
+

@@ -1,0 +1,8 @@
+PREFIX mapRDFS: <http://protege.stanford.edu/ontologies/mappings/mappings.rdfs#>
+
+SELECT (count(?mapID) as ?countLoomMapIDs)
+WHERE {
+    GRAPH <http://purl.bioontology.org/mapping/loom>
+    { ?mapID a mapRDFS:One_To_One_Mapping . }
+}
+

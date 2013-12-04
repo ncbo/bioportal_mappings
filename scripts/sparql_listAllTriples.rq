@@ -1,0 +1,10 @@
+# vim: filetype=sparql
+
+SELECT ?g ?s ?p ?o
+WHERE
+{
+	{ ?s ?p ?o }
+	UNION
+	{ GRAPH ?g { ?s ?p ?o } }
+}
+

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="WARN" name="MappingLog4jConfig">
+
+    <properties>
+        <property name="logFileName">
+            /tmp/bioportal_mapping.log
+        </property>
+        <property name="logPattern">
+            %d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n
+        </property>
+    </properties>
+
+    <appenders>
+
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="${logPattern}"/>
+        </Console>
+
+        <RollingFile name="RollingFile" fileName="${logFileName}"
+            filePattern="/tmp/bioportal_mapping_%d{yyyy-MM-dd}_%i.log.gz">
+            <PatternLayout pattern="${logPattern}"/>
+            <Policies>
+                <!-- Rotate the log file every 2 days -->
+                <TimeBasedTriggeringPolicy interval="2"/>
+            </Policies>
+        </RollingFile>
+
+    </appenders>
+
+    <loggers>
+    	<!-- All classes in this package 'name' have the same logger. -->
+        <logger name="org.ncbo.stanford.mappings" level="DEBUG">
+            <!-- No appender, all output is through the root logger. -->
+        </logger>
+        <root level="DEBUG">
+            <!-- No console output, because query classes
+            	 output the query dump file name to STDOUT. 
+            -->
+            <appender-ref ref="RollingFile"/>
+        </root>
+    </loggers>
+
+</configuration>

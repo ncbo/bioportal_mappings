@@ -1,0 +1,9 @@
+PREFIX mapRDFS: <http://protege.stanford.edu/ontologies/mappings/mappings.rdfs#>
+
+SELECT ?mapID
+FROM <http://purl.bioontology.org/mapping/loom>
+WHERE
+{
+   ?mapID a mapRDFS:One_To_One_Mapping .
+}
+

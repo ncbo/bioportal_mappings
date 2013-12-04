@@ -1,0 +1,13 @@
+PREFIX bio: <http://bioportal.bioontology.org/>
+PREFIX bioMeta: <http://bioportal.bioontology.org/metadata/def/>
+PREFIX bioData: <http://bioportal.bioontology.org/ontologies/>
+PREFIX omv: <http://omv.ontoware.org/2005/05/ontology#>
+SELECT DISTINCT ?vrtURL ?vrtID ?verID
+WHERE {
+  ?vrt bioMeta:id ?vrtID .
+  ?vrt bioMeta:hasVersion ?ver .
+  ?ver a omv:Ontology .
+  ?ver bioMeta:id ?verID .
+  ?ver bioMeta:hasDataGraph ?vrtURL .
+}
+LIMIT 10

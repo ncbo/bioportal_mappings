@@ -1,0 +1,57 @@
+
+# - There should be 16 mappings generated for this test dataset.
+
+# - Term matching should skip blank lines.
+
+# - Term matching should skip any line that begins with a hash, with no
+# whitespace before it.
+
+# - The term query/dump should never encounter a term that begins with a hash,
+# without stripping the hash.  Note below that some term urls contain a hash
+# character, which is not stripped or ignored in the mapping process.
+
+# - The term query/dump may flag some terms as an error, using the following
+# format, so these lines are skipped by term matching:
+
+#ERROR: medialpreopticarea	skos:altLabel	http://bioontology.org/projects/ontologies/birnlex#birnlex_1208	1089	29684
+
+# - The mapping should ignore all terms with no more than 3 chars.  This block
+# should not generate any mappings.
+abc	skos:altLabel	http://purl.obolibrary.org/obo/UBERON_0007769	1404	46902
+abc	skos:prefLabel	http://mouse.brain-map.org/atlas/index.html#MPO	1290	40133
+
+# - The mapping should only match prefLabel to other prefLabel and altLabel
+# terms, never altLabel to altLabel terms.  In the following block, it should
+# generate 14 mappings, 7 for the prefLabel to each altLabel (termA:termB) and
+# another 7 for each reverse mapping (termB:termA).
+medialpreopticarea	skos:altLabel	http://bioontology.org/projects/ontologies/birnlex#birnlex_1208	1089	29684
+medialpreopticarea	skos:altLabel	http://bioontology.org/projects/ontologies/birnlex#birnlex_706	1089	29684
+medialpreopticarea	skos:altLabel	http://bioontology.org/projects/ontologies/radlex/radlexOwlDlComponent#RID20947	1057	46355
+medialpreopticarea	skos:altLabel	http://ontology.neuinfo.org/NIF/BiomaterialEntities/NIF-GrossAnatomy.owl#birnlex_1208	1084	46505
+medialpreopticarea	skos:altLabel	http://ontology.neuinfo.org/NIF/BiomaterialEntities/NIF-GrossAnatomy.owl#birnlex_706	1084	46505
+medialpreopticarea	skos:altLabel	http://purl.obolibrary.org/obo/FMA_67890	1245	39927
+medialpreopticarea	skos:altLabel	http://purl.obolibrary.org/obo/UBERON_0007769	1404	46902
+medialpreopticarea	skos:prefLabel	http://mouse.brain-map.org/atlas/index.html#MPO	1290	40133
+
+# - The term mapping does not find partial lexical matches.  In the following
+# block, the first two terms do not match anything else.  For this block, it
+# should generate only 2 mappings, because most of the prefLabel:altLabel
+# matches are within the same ontology, so they are skipped.  The only mapping
+# is between the prefLabel:altLabel for SNOMEDCT and MSH.
+dequervainsdiseasedisorder	skos:altLabel	http://purl.bioontology.org/ontology/SNOMEDCT/123249005	1353	46896
+dequervainsdiseaseretired	skos:altLabel	http://purl.bioontology.org/ontology/SNOMEDCT/123249005	1353	46896
+dequervainsdisease	skos:altLabel	http://purl.bioontology.org/ontology/MSH/D053684	1351	46836
+dequervainsdisease	skos:altLabel	http://purl.bioontology.org/ontology/SNOMEDCT/154666006	1353	46896
+dequervainsdisease	skos:altLabel	http://purl.bioontology.org/ontology/SNOMEDCT/190296009	1353	46896
+dequervainsdisease	skos:altLabel	http://purl.bioontology.org/ontology/SNOMEDCT/202905002	1353	46896
+dequervainsdisease	skos:altLabel	http://purl.bioontology.org/ontology/SNOMEDCT/21794005	1353	46896
+dequervainsdisease	skos:prefLabel	http://purl.bioontology.org/ontology/SNOMEDCT/123249005	1353	46896
+
+# - The term mapping does not find partial lexical matches.  There should be no
+# mappings for the following terms.  (Note that UMLS lexical tools may find
+# relations between these terms.  If so, they may be assigned the same CUI or
+# identified in UMLS REL or MAP data.)
+radialstyloidtenosynovitisordequervainsdiseaseortriggerthumbacquireddisorder	skos:altLabel	http://purl.bioontology.org/ontology/SNOMEDCT/202905002	1353	46896
+radialstyloidtenosynovitisordequervainsdiseaseortriggerthumbacquired	skos:prefLabel	http://purl.bioontology.org/ontology/SNOMEDCT/202905002	1353	46896
+tendonsheathincisionatradialstyloidfordequervainsdisease	skos:altLabel	http://purl.bioontology.org/ontology/SNOMEDCT/3713005	1353	46896
+

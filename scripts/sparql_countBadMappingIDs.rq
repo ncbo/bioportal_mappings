@@ -1,0 +1,12 @@
+
+PREFIX mapRDFS: <http://protege.stanford.edu/ontologies/mappings/mappings.rdfs#>
+
+SELECT (count(?mapID) as ?countBadIDs)
+WHERE
+{
+    GRAPH <http://purl.bioontology.org/mapping/tmpBad>
+    {
+        ?mapID a mapRDFS:One_To_One_Mapping .
+    }
+}
+

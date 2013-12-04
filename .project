@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+  <name>bioportal_mapping</name>
+  <comment>Submitted By: Ray Fergerson
+Add date: 2011-11-01 13:06:52
+After discussion with Paul and Darren we decided on an implementation plan, documented here.
+(1) Dump preferred names and synonyms (TEXT), term ids, and ontology virtual ids from BioPortal triple store to a file
+(2) Walk files and process TEXT according to algorithm described in previous followup
+(3) Sort file on all columns and uniq file
+(4) Walk through the file creating an entry in a mappings file (NEWMAPPINGS) for rows with the same value of TEXT.
+(a) do not create mapping of a term in an ontology to any term in the same ontology
+(b) do not create mappings between terms in ontologies if neither ontology has changed since the last processing (can be conservative here and create additional mappings which will be filtered later)
+(5) dump all loom mappings from mappings db to file (OLDMAPPINGS) and sort
+(6) remove all entries in NEWMAPPINGS which are present in OLDMAPPINGS (suggest &quot;join -v&quot;)
+(7) upload NEWMAPPINGS file to mappings db
+
+One additional item pointed out by Natasha. We do not want mapping from synonyms to synonyms. Mapping from preferred names to synonyms are fine. The synonym-to-synonym mappings generated in previous trials contained too much garbage. NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
+  <projects/>
+  <buildSpec>
+    <buildCommand>
+      <name>org.eclipse.jdt.core.javabuilder</name>
+    </buildCommand>
+    <buildCommand>
+      <name>org.eclipse.m2e.core.maven2Builder</name>
+    </buildCommand>
+  </buildSpec>
+  <natures>
+    <nature>org.eclipse.m2e.core.maven2Nature</nature>
+    <nature>org.eclipse.jdt.core.javanature</nature>
+  </natures>
+</projectDescription>

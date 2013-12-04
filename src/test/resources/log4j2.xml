@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="OFF" strict="true" name="org.ncbo.stanford.mappings">
+  <properties>
+    <property name="filename">/tmp/bioportal_mapping.log</property>
+  </properties>
+  <appenders>
+    <appender type="Console" name="STDOUT">
+      <layout type="PatternLayout">
+        <pattern>
+	      %d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n
+        </pattern>
+      </layout>
+    </appender>
+  </appenders>
+  <loggers>
+  	<logger name="org.ncbo.stanford.mappings" level="ALL">
+    </logger>
+    <root level="ALL">
+      <appender-ref ref="STDOUT"/>
+    </root>
+  </loggers>
+</configuration>

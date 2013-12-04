@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.ncbo.stanford.mappings</groupId>
+	<artifactId>bioportal_mapping</artifactId>
+	<version>1.0-SNAPSHOT</version>
+
+	<name>bioportal_mapping</name>
+	<url>http://bioportal.bioontology.org/mappings</url>
+
+	<organization>
+		<name>NCBO Bioportal</name>
+		<url>http://bioportal.bioontology.org</url>
+	</organization>
+
+	<scm>
+		<connection>scm:git:ssh://bmir-gforge.stanford.edu/gitroot/bioportal_loom</connection>
+		<developerConnection>scm:git:ssh://bmir-gforge.stanford.edu/gitroot/bioportal_loom</developerConnection>
+	</scm>
+
+	<issueManagement>
+		<url>dlweber@bmir-gforge.stanford.edu</url>
+		<system>GForge</system>
+	</issueManagement>
+	<description>Submitted By: Ray Fergerson
+Add date: 2011-11-01 13:06:52
+After discussion with Paul and Darren we decided on an implementation plan, documented here.
+(1) Dump preferred names and synonyms (TEXT), term ids, and ontology virtual ids from BioPortal triple store to a file
+(2) Walk files and process TEXT according to algorithm described in previous followup
+(3) Sort file on all columns and uniq file
+(4) Walk through the file creating an entry in a mappings file (NEWMAPPINGS) for rows with the same value of TEXT.
+(a) do not create mapping of a term in an ontology to any term in the same ontology
+(b) do not create mappings between terms in ontologies if neither ontology has changed since the last processing (can be conservative here and create additional mappings which will be filtered later)
+(5) dump all loom mappings from mappings db to file (OLDMAPPINGS) and sort
+(6) remove all entries in NEWMAPPINGS which are present in OLDMAPPINGS (suggest &quot;join -v&quot;)
+(7) upload NEWMAPPINGS file to mappings db
+
+One additional item pointed out by Natasha. We do not want mapping from synonyms to synonyms. Mapping from preferred names to synonyms are fine. The synonym-to-synonym mappings generated in previous trials contained too much garbage.
+</description>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.jena</groupId>
+			<artifactId>jena-arq</artifactId>
+			<version>2.9.3</version>
+		</dependency>	
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.16</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.apache.logging.log4j</groupId>
+		  <artifactId>log4j-api</artifactId>
+		  <version>2.0-beta2</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.apache.logging.log4j</groupId>
+		  <artifactId>log4j-core</artifactId>
+		  <version>2.0-beta2</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<resources>
+    		<resource>
+        		<directory>src/main/resources</directory>
+    		</resource>
+		</resources>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>2.0.2</version>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.8</version>
+				<configuration>
+					<doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
+					<!-- <docletPath>/path/to/UmlGraph.jar</docletPath> -->
+					<docletArtifact>
+						<groupId>org.umlgraph</groupId>
+						<artifactId>doclet</artifactId>
+						<version>5.1</version>
+					</docletArtifact>
+					<additionalparam>-views</additionalparam>
+					<useStandardDocletOptions>true</useStandardDocletOptions>
+				</configuration>
+			</plugin>
+		</plugins>
+
+	</build>
+
+	<ciManagement>
+		<system>Jenkins</system>
+		<url>https://bmir-jenkins.stanford.edu/job/NCBO_BioPortalMapping_Build/</url>
+	</ciManagement>
+</project>
